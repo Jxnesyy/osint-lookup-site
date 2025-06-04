@@ -1,0 +1,68 @@
+<!-- OSINT TOOL WEBSITE PREVIEW -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSINT Lookup Tool by Jxnesyy</title>
+  <style>
+    body { font-family: sans-serif; background-color: #0d1117; color: #c9d1d9; text-align: center; padding: 2em; }
+    h1 { color: #58a6ff; }
+    input, select, button { margin: 1em; padding: 0.6em; border: none; border-radius: 4px; font-size: 1em; }
+    button { background-color: #238636; color: white; cursor: pointer; }
+    button:hover { background-color: #2ea043; }
+    .footer { margin-top: 3em; font-size: 0.9em; color: #8b949e; }
+  </style>
+</head>
+<body>
+  <h1>🕵 OSINT Lookup Tool</h1>
+  <p>Quickly search usernames, emails, domains, or IPs using open source intelligence.</p>
+  <form>
+    <select id="type">
+      <option value="email">Email</option>
+      <option value="username">Username</option>
+      <option value="ip">IP Address</option>
+      <option value="domain">Domain</option>
+    </select>
+    <input type="text" id="query" placeholder="Enter your query...">
+    <button type="button" onclick="runLookup()">Lookup</button>
+  </form>
+
+  <div id="results"></div>
+
+  <div class="footer">
+    Made with ❤ by Jxnesyy
+  </div>
+
+  <script>
+    function runLookup() {
+      const type = document.getElementById("type").value;
+      const query = document.getElementById("query").value.trim();
+      if (!query) return alert("Please enter a value");
+
+      const urls = {
+        email: [
+          `https://haveibeenpwned.com/unifiedsearch/${query}`,
+          `https://hunter.io/email-finder/${query}`,
+          `https://www.google.com/search?q=${query}`
+        ],
+        username: [
+          `https://namechk.com/`,
+          `https://github.com/${query}`,
+          `https://twitter.com/${query}`
+        ],
+        ip: [
+          `https://www.abuseipdb.com/check/${query}`,
+          `https://ipinfo.io/${query}`
+        ],
+        domain: [
+          `https://who.is/whois/${query}`,
+          `https://www.virustotal.com/gui/domain/${query}`
+        ]
+      };
+
+      urls[type].forEach(url => window.open(url, '_blank'));
+    }
+  </script>
+</body>
+</html>
